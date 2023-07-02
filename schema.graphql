@@ -1,0 +1,41 @@
+type Query {
+    getFolderContent(folderID:String!): [FolderOrFile!]!
+    getFile(fileID:String!): File
+    getAccountCapacity: AccountCapacity!
+}
+
+type Mutation {
+    addFileToFolder(folderID:String!, newFile: NewFile!): File!
+}
+
+type AccountCapacity {
+    totalStorage: GigaBites!
+    usedStorage: GigaBites!
+}
+
+type Folder {
+    id: String!
+    name: String!
+    createdAt: DateTime!
+    location: String!
+}
+
+type File {
+    id: String!
+    name: String!
+    createdAt: DateTime!
+    location: String!
+    fileContentUrl: url!
+    imagePreviewUrl: url!
+}
+
+input NewFile {
+    fileContent:String!
+    fileName:String!
+}
+
+union FolderOrFile = Folder | File
+
+scalar DateTime
+scalar GigaBites
+scalar url
